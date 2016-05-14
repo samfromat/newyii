@@ -12,6 +12,8 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use frontend\models\NewForm;
+use frontend\models\Customer;
 
 /**
  * Site controller
@@ -209,5 +211,24 @@ class SiteController extends Controller
         return $this->render('resetPassword', [
             'model' => $model,
         ]);
+    }
+
+
+    public function actionSay()
+    {
+        $model = new NewForm();
+
+        if ($model->load(Yii::$app->request->post()) ) {
+
+            $customer=new Customer;
+
+            $customer->name=$model->name;
+            $customer->city=$model->city;
+            
+            $customer->save();
+
+            Yii::$app->session->setFlash('success', 'Parameters saved.');
+        }
+        return $this->render('say',['model' => $model]);
     }
 }
