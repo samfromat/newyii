@@ -34,5 +34,4 @@ class NewForm extends Model
     }
 
 
-
 }
